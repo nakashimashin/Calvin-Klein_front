@@ -1,4 +1,6 @@
 import './globals.css'
+import React from 'react'
+import TextareaAutosize from 'react-textarea-autosize'
 
 export const metadata = {
   title: 'Create Next App',
