@@ -46,7 +46,7 @@ export default function Form() {
                 {...register("textform",{
                     required: "テキストを入力してください",
                     pattern: text == "日本語"? japanesePattern : englishPattern //三項演算子
-                })} className='bg-gray-100 rounded w-[300px] md:w-[500px] mt-[60px] text-[16px] md:text-[25px] placeholder=""'/> 
+                })} className='bg-gray-100 rounded w-[300px] md:w-[500px] h-[360px] mt-[60px] text-[16px] md:text-[25px] placeholder=""'/> 
                 <p className='text-red-500'>{errors.textform?.message as React.ReactNode}</p>
                 <Select placeholder='言語を選択してください' value={text} onChange={handleChange} >
                     <option value='日本語' >日本語</option>
