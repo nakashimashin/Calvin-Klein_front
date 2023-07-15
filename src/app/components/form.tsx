@@ -1,6 +1,7 @@
 'use client'
 import TextareaAutosize from 'react-textarea-autosize'; 
 import { useForm } from "react-hook-form";
+import { Select } from '@chakra-ui/react'
 
 interface InputForm {
     textform: string;
@@ -22,6 +23,10 @@ export default function Form() {
                 pattern: {value:/^[^a-zA-Z]*$/i,message :"日本語で入力してください!!"},//日本語のみ表示可能
             })} className='bg-gray-100 rounded w-[300px] md:w-[500px] mt-[60px] text-[16px] md:text-[25px] placeholder=""'/> 
             <p className='text-red-500'>{errors.textform?.message as React.ReactNode}</p>
+            <Select placeholder='言語を選択してください' className=''>
+                <option value='option1' >日本語</option>
+                <option value='option2'>English</option>
+            </Select>
         </form>
     )
 }
