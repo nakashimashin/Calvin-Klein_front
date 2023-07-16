@@ -9,9 +9,9 @@ import {
     Grid,
     GridItem,
     Button,
-    Spinner
+    Tooltip
 } from "@chakra-ui/react";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { convert } from "../api/convert.api";
 import { Loading } from "./Loading";
 import ArrowDown from '../images/arrowDown.svg'
@@ -39,6 +39,8 @@ export default function Form() {
     const [isLoaging, setIsLoading] = useState<boolean>(false);
     const [isResOk, setIsResOk] = useState<boolean>(false);
     const [resVal, setResVal] = useState<ResVal>({ emojiCodes: '', animalSounds: '', morseCode: '' });
+    const [toggle, setToggle] = useState<boolean>(true);
+
 
     const {
         register,
@@ -72,13 +74,9 @@ export default function Form() {
     }
 
     const speak = () => {
-        console.log("test")
-        console.log(resVal.animalSounds)
-        // const synthesis = window.speechSynthesis;
-        // const utterance = new SpeechSynthesisUtterance(resVal.animalSounds);
-
-        // synthesis.speak(utterance)
-        speechSynthesis.speak(new SpeechSynthesisUtterance(resVal.animalSounds));
+        const synthesis = window.speechSynthesis;
+        const utterance = new SpeechSynthesisUtterance(resVal.animalSounds);
+        synthesis.speak(utterance)
     }
 
     const englishPattern = {
@@ -100,7 +98,6 @@ export default function Form() {
 
     useEffect(() => {
         if (!flag) return setFlag(true); //returnで返すことで初回のレンダリング時にtriggerの動きを防ぐ
-
         trigger("textform"); //<TextareAutosize />に反応?
     }, [text]);
 
@@ -168,28 +165,46 @@ export default function Form() {
                     <Box padding='56px 176px'>
                         <ArrowDown />
                     </Box>
-                    <Button onClick={speak}>play</Button>
-                    <TextareaAutosize
-                        id="textform"
-                        aria-label="minimum height"
-                        minRows={15}
-                        className='bg-gray-100 rounded w-[300px] md:w-[500px] mt-[60px] text-[16px] md:text-[25px] placeholder=""'
-                    >
-                        {resVal.animalSounds}
-                    </TextareaAutosize>
-                    <Button
-                        as={Tweet}
-                        text="マイクテストマイクテストマイクテスト"
-                        url="https://calvin-klein-front.vercel.app/"
-                        hashtags={["react", "nextjs"]}
-                        colorScheme="twitter"
-                        className="mt-4"
-                    >
-                        Tweet
-                    </Button>
-
+                    <Grid>
+                        <GridItem>
+                            <Grid templateColumns='repeat(3, 1fr)'>
+                                <GridItem textAlign='center'>
+                                    <Button onClick={speak}>play sound</Button>
+                                </GridItem>
+                                <GridItem textAlign='center'>
+                                    <Button
+                                        as={Tweet}
+                                        text={toggle ? resVal.animalSounds : resVal.emojiCodes}
+                                        url="https://calvin-klein-front.vercel.app/"
+                                        hashtags={["react", "nextjs"]}
+                                        colorScheme="twitter"
+                                    >
+                                        Tweet
+                                    </Button>
+                                </GridItem>
+                                <GridItem textAlign='center'>
+                                    <Button background='gray' color='white'>Meta Threads</Button>
+                                </GridItem>
+                            </Grid>
+                        </GridItem>
+                        <GridItem position='relative'>
+                            <Tooltip label='toggle content'>
+                                <Button onClick={() => setToggle(prev => !prev)} colorScheme="yellow" position='absolute' left='-80px' top='64px'>
+                                    {toggle ? <Text fontSize='xl'>😀</Text> : <Text fontSize='xl'>🔠</Text>}
+                                </Button>
+                            </Tooltip>
+                            <TextareaAutosize
+                                value={toggle ? resVal.animalSounds : resVal.emojiCodes}
+                                id="textform"
+                                aria-label="minimum height"
+                                minRows={15}
+                                className='bg-gray-100 rounded w-[300px] md:w-[500px] mt-[16px] text-[16px] md:text-[25px] placeholder=""'
+                            >
+                            </TextareaAutosize>
+                        </GridItem>
+                    </Grid>
                 </>)}
-            </form>
+            </form >
         </>
     );
 }
