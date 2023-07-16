@@ -1,20 +1,20 @@
 'use client'
-import React, { ComponentProps, forwardRef } from 'react';
+import { ComponentPropsWithRef, RefObject } from 'react';
 
-type TwitterIntentTweetProps = {
+interface TwitterIntentTweetProps extends ComponentPropsWithRef<"a"> {
     text?: string;
     url?: string;
     hashtags?: string[];
     via?: string;
     related?: string[];
     in_reply_to?: string;
-  } & Omit<ComponentProps<"a">, "href" | "target" | "rel">;
+    forwardRef: RefObject<HTMLAnchorElement>
+  }
 
 
-  export const Tweet = forwardRef<HTMLAnchorElement, TwitterIntentTweetProps>(
+  export const Tweet = 
     (
-      { text, url, hashtags, via, related, in_reply_to, ...intrinsicProps },
-      forwardedRef,
+      { text, url, hashtags, via, related, in_reply_to, forwardRef, ...intrinsicProps }: TwitterIntentTweetProps
     ) => {
       const _url = new URL("https://twitter.com/intent/tweet");
   
@@ -27,12 +27,11 @@ type TwitterIntentTweetProps = {
   
       return (
         <a
-          ref={forwardedRef}
+          ref={forwardRef}
           href={_url.toString()}
           target="_blank"
           rel="noopener noreferrer"
           {...intrinsicProps}
         />
       );
-    },
-  );
+    };
