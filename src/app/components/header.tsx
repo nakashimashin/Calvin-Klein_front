@@ -1,4 +1,4 @@
-import { Question } from "./components/question_button"; 
+// import { Question } from "./components/question_button"; 
 
 export default function Header() {
     return (
@@ -7,7 +7,7 @@ export default function Header() {
             <div className="text-white font-bold text-2xl">AniMorse code</div>
             <div className="space-x-12">
                 {/* <a href="" className="text-white font-bold text-3xl md:text-3xl no-underline hover:underline">usename</a> */}
-                <Question />
+                {/* <Question /> */}
                 <a href="" className="text-white font-bold text-3xl md:text-3xl no-underline hover:underline">×</a>
             </div>
         </nav>
