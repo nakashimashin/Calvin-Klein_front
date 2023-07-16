@@ -168,26 +168,37 @@ export default function Form() {
                     <Box padding='56px 176px'>
                         <ArrowDown />
                     </Box>
-                    <Button onClick={speak}>play</Button>
-                    <TextareaAutosize
-                        id="textform"
-                        aria-label="minimum height"
-                        minRows={15}
-                        className='bg-gray-100 rounded w-[300px] md:w-[500px] mt-[60px] text-[16px] md:text-[25px] placeholder=""'
-                    >
-                        {resVal.animalSounds}
-                    </TextareaAutosize>
-                    <Button
-                        as={Tweet}
-                        text="マイクテストマイクテスト"
-                        url="https://calvin-klein-front.vercel.app/"
-                        hashtags={["react", "nextjs"]}
-                        colorScheme="twitter"
-                        className="mt-4"
-                    >
-                        Tweet
-                    </Button>
+                    <Grid>
+                        <GridItem>
+                            <Grid templateColumns='repeat(2, 1fr)'>
+                                <GridItem textAlign='center'>
+                                    <Button onClick={speak}>play sound</Button>
+                                </GridItem>
+                                <GridItem textAlign='center'>
+                                    <Button
+                                        as={Tweet}
+                                        text={resVal.animalSounds}
+                                        url="https://calvin-klein-front.vercel.app/"
+                                        hashtags={["react", "nextjs"]}
+                                        colorScheme="twitter"
+                                    >
+                                        Tweet
+                                    </Button>
+                                </GridItem>
+                            </Grid>
+                        </GridItem>
+                        <GridItem>
+                            <TextareaAutosize
+                                id="textform"
+                                aria-label="minimum height"
+                                minRows={15}
+                                className='bg-gray-100 rounded w-[300px] md:w-[500px] mt-[16px] text-[16px] md:text-[25px] placeholder=""'
+                            >
+                                {resVal.animalSounds}
+                            </TextareaAutosize>
+                        </GridItem>
 
+                    </Grid>
                 </>)}
             </form>
         </>
