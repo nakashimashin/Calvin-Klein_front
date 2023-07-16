@@ -38,7 +38,7 @@ export default function Form() {
     const [formState, setFormState] = useState<Form>({ mode: 'wabun', animal: 'cat' })
     const [isLoaging, setIsLoading] = useState<boolean>(false);
     const [isResOk, setIsResOk] = useState<boolean>(false);
-    const [resVal, setResVal] = useState<ResVal>(undefined);
+    const [resVal, setResVal] = useState<ResVal>({ emojiCodes: '', animalSounds: '', morseCode: '' });
 
     const {
         register,
@@ -179,7 +179,7 @@ export default function Form() {
                     </TextareaAutosize>
                     <Button
                         as={Tweet}
-                        text="マイクテストマイクテスト"
+                        text="マイクテストマイクテストマイクテスト"
                         url="https://calvin-klein-front.vercel.app/"
                         hashtags={["react", "nextjs"]}
                         colorScheme="twitter"
