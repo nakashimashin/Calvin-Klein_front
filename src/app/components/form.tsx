@@ -179,7 +179,7 @@ export default function Form() {
                     </TextareaAutosize>
                     <Button
                         as={Tweet}
-                        text="マイクテストマイクテスト"
+                        text="マイクテストマイクテストマイクテスト"
                         url="https://calvin-klein-front.vercel.app/"
                         hashtags={["react", "nextjs"]}
                         colorScheme="twitter"
