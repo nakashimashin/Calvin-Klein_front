@@ -2,13 +2,9 @@ import { getNews } from "@/app/api/news.api"
 import {
     Box,
     Table,
-    Thead,
     Tbody,
-    Tfoot,
     Tr,
-    Th,
     Td,
-    TableCaption,
     TableContainer,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react"
