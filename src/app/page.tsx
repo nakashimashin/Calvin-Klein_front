@@ -1,10 +1,15 @@
 import Form from "./components/form"
+import Header from "./components/header"
+import AniMorse from "./components/animorse_code"
+
 export default function Home() {
   return (
-    <div className="flex flex-col justify-center items-center">
-      <div className="text-[3vw]">🐶AniMorse code🐱</div>
-      <div>テスト</div>
-      <Form />
-    </div>
+    <>
+      <Header />
+      <div className="flex flex-col justify-center items-center">
+        <AniMorse />
+        <Form />
+      </div>
+    </>
   )
 }
