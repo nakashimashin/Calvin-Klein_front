@@ -14,6 +14,8 @@ import {
 import { useState, useCallback, useEffect } from "react";
 import { convert } from "../api/convert.api";
 import { Loading } from "./Loading";
+import ArrowDown from '../images/arrowDown.svg'
+import { Tweet } from "./twitter_button"
 
 interface InputForm {
     textform: string;
@@ -24,12 +26,19 @@ interface Form {
     animal: string;
 }
 
+interface ResVal {
+    emojiCodes: string;
+    animalSounds: string,
+    morseCode: string
+}
+
 export default function Form() {
     const [text, setText] = useState("日本語"); //textの初期値を日本語に
     const [flag, setFlag] = useState(false); //初回のtriggerを防ぐときに使うflagを作成
     const [formState, setFormState] = useState<Form>({ mode: 'wabun', animal: 'cat' })
     const [isLoaging, setIsLoading] = useState<boolean>(false);
     const [isResOk, setIsResOk] = useState<boolean>(false);
+    const [resVal, setResVal] = useState<ResVal>(undefined);
 
     const {
         register,
@@ -49,17 +58,27 @@ export default function Form() {
         }
 
         try {
-            const converted = await convert(body);
-            if (converted) {
+            const res = await convert(body);
+            if (res) {
                 setIsResOk(true);
+                setResVal(res.data);
             }
-            console.log(converted)
         } catch (e) {
             console.log(e)
         } finally {
             setIsLoading(false);
         }
 
+    }
+
+    const speak = () => {
+        console.log("test")
+        console.log(resVal.animalSounds)
+        // const synthesis = window.speechSynthesis;
+        // const utterance = new SpeechSynthesisUtterance(resVal.animalSounds);
+
+        // synthesis.speak(utterance)
+        speechSynthesis.speak(new SpeechSynthesisUtterance(resVal.animalSounds));
     }
 
     const englishPattern = {
@@ -139,12 +158,37 @@ export default function Form() {
                             </Select>
                         </GridItem>
                         <GridItem area={"submit"} textAlign="center">
-                            <Button type='submit' colorScheme="green" width="88%">
+                            <Button type='submit' background='#45e660' color='white' width="88%">
                                 Convert
                             </Button>
                         </GridItem>
                     </Grid>
                 }
+                {isResOk && (<>
+                    <Box padding='56px 176px'>
+                        <ArrowDown />
+                    </Box>
+                    <Button onClick={speak}>play</Button>
+                    <TextareaAutosize
+                        id="textform"
+                        aria-label="minimum height"
+                        minRows={15}
+                        className='bg-gray-100 rounded w-[300px] md:w-[500px] mt-[60px] text-[16px] md:text-[25px] placeholder=""'
+                    >
+                        {resVal.animalSounds}
+                    </TextareaAutosize>
+                    <Button
+                        as={Tweet}
+                        text="マイクテストマイクテスト"
+                        url="https://calvin-klein-front.vercel.app/"
+                        hashtags={["react", "nextjs"]}
+                        colorScheme="twitter"
+                        className="mt-4"
+                    >
+                        Tweet
+                    </Button>
+
+                </>)}
             </form>
         </>
     );
