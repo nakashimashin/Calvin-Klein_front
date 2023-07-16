@@ -87,9 +87,9 @@ const NewsContainer = () => {
                     <TableContainer border='solid 2px black' borderRadius='10px' padding='4px' maxWidth='88%'>
                         <Table size='sm' colorScheme="twitter">
                             <Tbody>
-                                {news.map((el) => {
+                                {news.map((el, i) => {
                                     return (
-                                        <Tr>
+                                        <Tr key={i}>
                                             <Td>
                                                 <a href={baseUrl + el['path']} >{el['title']}</a>
                                             </Td>
