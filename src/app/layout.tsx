@@ -19,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-      <html lang="ja">
+      <html lang="ja" className=''>
         <body className='w-screen h-screen'>
           <ChakraProvider resetCSS={false}>
             {children}
