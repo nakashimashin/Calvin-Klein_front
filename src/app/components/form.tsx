@@ -15,6 +15,7 @@ import { useState, useCallback, useEffect } from "react";
 import { convert } from "../api/convert.api";
 import { Loading } from "./Loading";
 import ArrowDown from '../images/arrowDown.svg'
+import { Tweet } from "./twitter_button"
 
 interface InputForm {
     textform: string;
@@ -70,7 +71,7 @@ export default function Form() {
 
     }
 
-    const speak = () => { 
+    const speak = () => {
         console.log("test")
         console.log(resVal.animalSounds)
         // const synthesis = window.speechSynthesis;
@@ -176,6 +177,17 @@ export default function Form() {
                     >
                         {resVal.animalSounds}
                     </TextareaAutosize>
+                    <Button
+                        as={Tweet}
+                        text="マイクテストマイクテスト"
+                        url="https://calvin-klein-front.vercel.app/"
+                        hashtags={["react", "nextjs"]}
+                        colorScheme="twitter"
+                        className="mt-4"
+                    >
+                        Tweet
+                    </Button>
+
                 </>)}
             </form>
         </>
