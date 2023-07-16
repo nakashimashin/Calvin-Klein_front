@@ -38,7 +38,7 @@ export default function Form() {
     const [formState, setFormState] = useState<Form>({ mode: 'wabun', animal: 'cat' })
     const [isLoaging, setIsLoading] = useState<boolean>(false);
     const [isResOk, setIsResOk] = useState<boolean>(false);
-    const [resVal, setResVal] = useState<ResVal>({});
+    const [resVal, setResVal] = useState<ResVal>(undefined);
 
     const {
         register,
