@@ -49,8 +49,17 @@ export default function Form() {
         trigger,
     } = useForm<InputForm>({ mode: "onChange" }); //useFormの設定
 
+    const downScroll = () =>{//convert発火時に下にスクロール
+        const element =document.getElementById("target");
+        const rect = element?.getBoundingClientRect();
+        const position = rect?.top;
+
+        window.scrollTo({ top:position, behavior: "smooth"})
+    };
+
     const onSubmit: SubmitHandler<InputForm> = async (data) => {
         setIsLoading(true);
+        setIsResOk(false);
 
         const words = data.textform;
         const body = {
@@ -70,7 +79,6 @@ export default function Form() {
         } finally {
             setIsLoading(false);
         }
-
     }
 
     const speak = () => {
@@ -99,7 +107,8 @@ export default function Form() {
     useEffect(() => {
         if (!flag) return setFlag(true); //returnで返すことで初回のレンダリング時にtriggerの動きを防ぐ
         trigger("textform"); //<TextareAutosize />に反応?
-    }, [text]);
+        downScroll()
+    }, [text,isResOk]);
 
     return (
         <>
@@ -155,7 +164,7 @@ export default function Form() {
                             </Select>
                         </GridItem>
                         <GridItem area={"submit"} textAlign="center">
-                            <Button type='submit' background='#45e660' color='white' width="88%">
+                            <Button id="convertbtn" type='submit' background='#45e660' color='white' width="88%">
                                 Convert
                             </Button>
                         </GridItem>
@@ -166,7 +175,7 @@ export default function Form() {
                         <ArrowDown />
                     </Box>
                     <Grid>
-                        <GridItem>
+                        <GridItem id="">
                             <Grid templateColumns='repeat(3, 1fr)'>
                                 <GridItem textAlign='center'>
                                     <Button onClick={speak}>play sound</Button>
@@ -195,7 +204,7 @@ export default function Form() {
                             </Tooltip>
                             <TextareaAutosize
                                 value={toggle ? resVal.animalSounds : resVal.emojiCodes}
-                                id="textform"
+                                id="target"
                                 aria-label="minimum height"
                                 minRows={15}
                                 className='bg-gray-100 rounded w-[300px] md:w-[500px] mt-[16px] text-[16px] md:text-[25px] placeholder=""'
