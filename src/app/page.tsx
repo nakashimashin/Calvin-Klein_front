@@ -12,7 +12,7 @@ export default function Home() {
       <div className="flex flex-col justify-center items-center">
         <AniMorse />
         <Form />
-              </div>
+      </div>
     </>
   )
 }
