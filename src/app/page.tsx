@@ -3,19 +3,52 @@ import Form from "./components/form"
 import Header from "./components/header"
 import AniMorse from "./components/animorse_code"
 import { Scroll } from "./components/scroll_button"
-import { Button } from "@chakra-ui/react"
-import { Tweet } from "./components/twitter_button"
-import { Grid, GridItem } from "@chakra-ui/react"
+import { Grid, GridItem, ModalCloseButton, ModalFooter } from "@chakra-ui/react"
 import NewsContainer from "./components/NewsContainer"
 import { useState } from "react"
-import internal from "stream"
+import { 
+  Modal,
+  ModalBody,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  useDisclosure, //utility hooksの一つ
+  Stack,
+  VStack,
+  Text,
+  Button,
+} from "@chakra-ui/react";
+import { MForm } from "./components/components/modal_form"
+
 
 export default function Home() {
   const [isShown, setIsShown] = useState<boolean>(false);
+  const { isOpen, onClose, onOpen} = useDisclosure();
 
   return (
     <>
-      <Header setIsShown={setIsShown}/>
+      <Header setIsShown={setIsShown} onOpen={onOpen}/>
+      <Modal isOpen={isOpen} onClose={onClose} size={"xl"} >
+        <ModalOverlay />
+        <ModalContent className="">
+          <ModalHeader fontSize='3xl' fontWeight={"bold"}>使い方</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+              <VStack>
+              <Stack spacing={3}>
+                <Text fontSize='3xl'>①使用する言語を選択する</Text> 
+                <Text fontSize='3xl'>②選択した言語でテキストを入力</Text> 
+                <Text fontSize='3xl'>③Convertボタンで送信</Text> 
+              </Stack>
+              <ModalFooter>
+                <Button colorScheme="green" mr={3} onClick={onClose}>
+                Close
+                </Button>
+              </ModalFooter>
+            </VStack>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
       <Grid templateColumns="repeat(12, 1fr)">
         <GridItem visibility={isShown ? "visible" : 'hidden'} colSpan={4} className='flex flex-col justify-center items-center'>
           <NewsContainer />
