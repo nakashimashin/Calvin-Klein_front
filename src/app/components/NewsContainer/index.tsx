@@ -9,10 +9,11 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react"
 import { Loading } from "../Loading";
+import { headerHeight } from "../header";
 
-const baseUrl = 'https://www3.nhk.or.jp'
+const baseUrl = 'https://www3.nhk.or.jp';
 
-const NewsContainer = () => {
+const NewsContainer = ({ isShown }: { isShown: boolean }) => {
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [news, setNews] = useState<{ path: string; title: string }[]>([]);
 
@@ -79,12 +80,12 @@ const NewsContainer = () => {
     }, [])
 
     return (
-        <>
+        <Box display={isShown ? 'content' : 'none'} position="fixed" top={`${headerHeight + 64}px`}>
             {isLoading ? (
                 <Loading />
             ) : (
                 <>
-                    <TableContainer border='solid 2px black' borderRadius='10px' padding='4px' maxWidth='88%'>
+                    <TableContainer margin='auto' border='solid 2px black' borderRadius='10px' padding='4px' maxWidth='88%'>
                         <Table size='sm' colorScheme="twitter">
                             <Tbody>
                                 {news.map((el) => {
@@ -102,7 +103,7 @@ const NewsContainer = () => {
                 </>
             )
             }
-        </>
+        </Box>
     )
 }
 

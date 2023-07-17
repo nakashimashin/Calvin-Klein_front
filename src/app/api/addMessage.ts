@@ -1,7 +1,7 @@
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../config/firebaseConfig";
 
-export const addMessage = async ({ unixTs, date, message }: { unixTs: number, date: string, message: string }) => {
+export const addMessage = async (unixTs: number, date: string, message: string) => {
     try {
         const docRef = await addDoc(collection(db, "messages"), {
             unix_ts: unixTs,

@@ -12,20 +12,20 @@ import ChatBox from "./components/ChatBox"
 
 export default function Home() {
   const [isShown, setIsShown] = useState<boolean>(false);
-
+  //TODO display isnone にする
   return (
     <>
       <Header setIsShown={setIsShown} />
       <Grid templateColumns="repeat(12, 1fr)">
-        <GridItem visibility={isShown ? "visible" : 'hidden'} colSpan={4} className='flex flex-col justify-center items-center'>
-          <NewsContainer />
+        <GridItem position="relative" colSpan={4} className='flex flex-col justify-center items-center'>
+          <NewsContainer isShown={isShown} />
         </GridItem>
         <GridItem colSpan={4} className='flex flex-col justify-center items-center'>
           <AniMorse />
           <Form />
         </GridItem>
-        <GridItem visibility={isShown ? "visible" : 'hidden'} colSpan={4} className='flex flex-col justify-center items-center'>
-          <ChatBox />
+        <GridItem colSpan={4} className='flex flex-col justify-center items-center'>
+          <ChatBox isShown={isShown} />
         </GridItem>
       </Grid>
       <Box mt='16px' visibility={isShown ? "visible" : 'hidden'} textAlign='center'>
